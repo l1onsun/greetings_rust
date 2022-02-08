@@ -1,0 +1,18 @@
+# Rust
+target
+.cargo
+
+## Editor
+*.swp
+*.swo
+Session.vim
+.cproject
+.idea
+*.iml
+.vscode
+.project
+.favorites.json
+.settings/
+
+# Custom
+.env
