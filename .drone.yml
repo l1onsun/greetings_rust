@@ -1,0 +1,10 @@
+---
+kind: pipeline
+name: default
+
+steps:
+- name: cargo
+  image: rust:alpine
+  commands:
+  - cargo build --all
+  - cargo test --all
