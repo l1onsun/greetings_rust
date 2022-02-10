@@ -1,6 +1,6 @@
----
+---  # BUILD
 kind: pipeline
-name: build-and-test
+name: build
 
 steps:
 - name: build-builder
@@ -10,12 +10,6 @@ steps:
     path: /var/run/docker.sock
   commands:
   - docker build --target builder -t greetings-builder:latest .
-
-- name: test
-  image: greetings-builder:latest
-  pull: if-not-exists
-  commands:
-  - just -f Justfile.docker test-release
 
 - name: build-app
   image: docker
@@ -30,3 +24,20 @@ volumes:
 - name: docker_sock
   host:
     path: /var/run/docker.sock
+
+---  # TEST
+kind: pipeline
+name: test
+
+clone:
+  disable: true
+
+steps:
+- name: test
+  image: greetings-builder:latest
+  pull: if-not-exists
+  commands:
+  - just test-release
+
+depends_on:
+- build
