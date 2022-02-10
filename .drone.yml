@@ -15,7 +15,7 @@ steps:
   image: greetings-builder:latest
   pull: if-not-exists
   commands:
-  - cargo test
+  - just test-release
 
 - name: build-app
   image: docker

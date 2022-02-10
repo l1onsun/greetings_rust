@@ -19,6 +19,8 @@ env:
 # CARGO
 cargo-build-release: env-check
     {{justd}} build-release
+cargo-test-release: env-check
+    {{justd}} test-release
 cargo-run: env-check
     cargo run {{cargo_target_arch}}
 

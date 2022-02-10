@@ -4,5 +4,8 @@ release_app_path := "./target/x86_64-unknown-linux-musl/release/app"
 build-release:
     cargo build --release {{cargo_target_arch}}
 
+test-release:
+    cargo test --release {{cargo_target_arch}}
+
 strip-release-binary:
     strip {{release_app_path}}
