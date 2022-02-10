@@ -37,7 +37,7 @@ steps:
   image: greetings-builder:latest
   pull: if-not-exists
   commands:
-  - just test-release
+  - cd /builder && just test-release
 
 depends_on:
 - build
