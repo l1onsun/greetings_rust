@@ -1,23 +1,28 @@
-FROM rust:latest as builder
+FROM rust:alpine as builder
 WORKDIR /builder
 
-# build requirements
+# pre-requirements
+RUN apk add --no-cache musl-dev binutils
 RUN rustup target add x86_64-unknown-linux-musl
 RUN cargo install just
+COPY Justfile.docker ./Justfile
 
-# build dependencies only
+# build dependencies cache layer
 RUN cargo init
 COPY Cargo.toml Cargo.lock ./
-RUN cargo build --target=x86_64-unknown-linux-musl --release
-RUN rm -rf src/*.rs
-
-# build our src
-COPY Cargo.toml Cargo.lock ./
-COPY src ./
 RUN just build-release
+RUN rm -rf src
 
+# build real src
+COPY src ./src
+COPY templates ./templates
+RUN touch src/main.rs
+RUN just build-release
+RUN just strip-release-binary
+
+# app
 FROM scratch
-WORKDIR /app
 COPY --from=builder /builder/target/x86_64-unknown-linux-musl/release/app ./
-COPY res ./
+COPY static ./static
+COPY default_survey_config.json ./
 CMD ["./app"]

@@ -1,0 +1,8 @@
+cargo_target_arch :=  "--target=x86_64-unknown-linux-musl"
+release_app_path := "./target/x86_64-unknown-linux-musl/release/app"
+
+build-release:
+    cargo build --release {{cargo_target_arch}}
+
+strip-release-binary:
+    strip {{release_app_path}}

@@ -1,0 +1,13 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!Cargo.toml
+!Cargo.lock
+!Justfile.docker
+!default_survey_config.json
+
+!src/**
+!templates/**
+!static/**
+!pipeline_scripts/**
