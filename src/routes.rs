@@ -2,11 +2,11 @@ use std::{borrow::Cow, fs::File, io::BufReader};
 
 use actix_web::{get, HttpRequest, Responder};
 
-use crate::template::{HelloTemplate, ToHtmlResponse};
+use crate::templates::askama::{SurveyTemplate, ToHtmlResponse};
 
 #[get("/")]
 pub async fn index(_req: HttpRequest) -> impl Responder {
-    serde_json::from_reader::<_, HelloTemplate>(BufReader::new(File::open(
+    serde_json::from_reader::<_, SurveyTemplate>(BufReader::new(File::open(
         "default_survey_config.json",
     )?))?
     .to_html_response()

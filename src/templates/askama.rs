@@ -2,17 +2,17 @@ use actix_web::{Error, HttpResponse};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct Section {
+pub struct SurveyTemplateSection {
     pub question: String,
     pub defaults: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, askama::Template)]
 #[template(path = "index.html")]
-pub struct HelloTemplate {
+pub struct SurveyTemplate {
     pub title: String,
     pub submit_text: String,
-    pub sections: Vec<Section>,
+    pub sections: Vec<SurveyTemplateSection>,
 }
 
 pub trait ToHtmlResponse {

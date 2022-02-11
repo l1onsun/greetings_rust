@@ -1,9 +1,9 @@
 mod app;
 mod env;
 mod routes;
-mod template;
+mod templates;
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    app::run().await
+async fn main() {
+    app::run_or_panic().await
 }

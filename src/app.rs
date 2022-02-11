@@ -2,7 +2,8 @@ use actix_web::{middleware, web, App, HttpRequest, HttpServer, Responder};
 
 use crate::{env::Env, routes};
 
-pub async fn run() -> Result<(), std::io::Error> {
+// ToDo: thiserror
+pub async fn run_or_panic() {
     let env = env_or_panic();
     setup_logging(&env);
 
@@ -20,6 +21,7 @@ pub async fn run() -> Result<(), std::io::Error> {
     .expect(format!("can't bind app to {}:{}", env.host, env.port).as_str())
     .run()
     .await
+    .expect("server start failure")
 }
 
 fn env_or_panic() -> Env {
