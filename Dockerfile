@@ -25,4 +25,5 @@ FROM scratch
 COPY --from=builder /builder/target/x86_64-unknown-linux-musl/release/app ./
 COPY static ./static
 COPY default_survey_config.json ./
+COPY default_greeting_config.json ./
 CMD ["./app"]

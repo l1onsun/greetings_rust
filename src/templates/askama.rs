@@ -8,12 +8,20 @@ pub struct SurveyTemplateSection {
 }
 
 #[derive(Serialize, Deserialize, askama::Template)]
-#[template(path = "index.html")]
+#[template(path = "survey.html")]
 pub struct SurveyTemplate {
     pub title: String,
     pub submit_text: String,
     pub sections: Vec<SurveyTemplateSection>,
 }
+
+#[derive(Serialize, Deserialize, askama::Template)]
+#[template(path = "greeting.html", escape = "none")]
+pub struct GreetingTemplate {
+    pub title: String,
+    pub lines: Vec<String>,
+}
+
 
 pub trait ToHtmlResponse {
     fn to_html_response(&self) -> ::std::result::Result<HttpResponse, Error>;

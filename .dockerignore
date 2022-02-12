@@ -6,6 +6,7 @@
 !Cargo.lock
 !Justfile.docker
 !default_survey_config.json
+!default_greeting_config.json
 
 !src/**
 !templates/**

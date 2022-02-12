@@ -1,8 +1,8 @@
-use std::{borrow::Cow, fs::File, io::BufReader};
+use std::{fs::File, io::BufReader};
 
 use actix_web::{get, HttpRequest, Responder};
 
-use crate::templates::askama::{SurveyTemplate, ToHtmlResponse};
+use crate::templates::askama::{SurveyTemplate, ToHtmlResponse, GreetingTemplate};
 
 #[get("/")]
 pub async fn index(_req: HttpRequest) -> impl Responder {
@@ -12,15 +12,15 @@ pub async fn index(_req: HttpRequest) -> impl Responder {
     .to_html_response()
 }
 
-#[get("/{name}")]
-pub async fn greet(req: HttpRequest) -> impl Responder {
-    let name = match req.match_info().get("name") {
-        Some(name) => Cow::Borrowed(name),
-        None => Cow::Owned(generate_name()),
-    };
-    format!("Hello {}!", name)
+#[get("/greet")]
+pub async fn greet(_req: HttpRequest) -> impl Responder {
+    let template: GreetingTemplate = serde_json::from_reader(BufReader::new(File::open(
+        "default_greeting_config.json",
+    )?))?;
+    template.to_html_response()
 }
 
+#[allow(dead_code)]
 fn generate_name() -> String {
     lipsum::lipsum_title().to_lowercase().replace(" ", "_")
 }

@@ -7,7 +7,7 @@ docker_builder_tag := "$DOCKER_REGISTRY/greetings-builder"
 docker_app_tag := "$DOCKER_REGISTRY/greetings-app"
 
 default: env-check
-  just --list
+  just --choose
 
 # ENV
 env-check:
